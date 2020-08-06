@@ -58,6 +58,11 @@ public enum OutputTarget {
         if xcodeColorsEnabled {
             return .xcodeColors
         }
+
+        if let forceColor = getEnvValue("FORCE_ANSI_COLOR"), forceColor != "0" {
+            return .console
+        }
+
         
         // Check if we are in any term env and the output is a tty.
         let termType = getEnvValue("TERM")
